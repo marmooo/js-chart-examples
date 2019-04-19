@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>Toast UI Chart (tui-chart) Line Chart Example</title>
+    <meta content='width=device-width' name='viewport'>
+    <script>
+      var date = new Date();
+    </script>
+    <link rel="stylesheet" href="tui-chart.min.css" />
+    <style>
+      #time { text-align: center; }
+      #chart { width:100%; height:300px; }
+    </style>
+  </head>
+  <body>
+    <script src="tui-chart.min.js"></script>
+    <div id="chart"></div>
+    <div id="time"></div>
+    <script>
+      // data
+      var series = [];
+      for (var i=0; i<10; i++) {
+        var data = [];
+        for (var j=0; j<100; j++) {
+          data[j] = Math.random() + i;
+        }
+        series[i] = { data:data, type:'line', name:'data'+i };
+      }
+      var categories = [];
+      for (var j=0; j<100; j++) {
+        categories[j] = j;
+      }
+      var data = { categories:categories, series:series };
+
+      // graph
+      var elem = document.getElementById('chart');
+      var options = {};
+      var chart = tui.chart.lineChartt(elem, data, options);
+
+      // benchmark
+      var time = new Date() - date;
+      document.getElementById('time').innerText = 'benchmark: ' + time.toString() + 'ms';
+    </script>
+  </body>
+</html>

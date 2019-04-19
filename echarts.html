@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>Echart.js Line Chart Example</title>
+    <meta content='width=device-width' name='viewport'>
+    <script>
+      var date = new Date();
+    </script>
+    <style>
+      #time { text-align: center; }
+      #chart { width:100%; height:300px; }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.2.1/echarts.min.js"></script>
+    <div id="chart"></div>
+    <div id="time"></div>
+    <script>
+      // data
+      var series = [];
+      for (var i=0; i<10; i++) {
+        var data = [];
+        for (var j=0; j<100; j++) {
+          data[j] = Math.random() + i;
+        }
+        series[i] = { data:data, type:'line', name:'data'+i };
+      }
+      var labels = [];
+      for (var j=0; j<100; j++) {
+        labels[j] = j;
+      }
+      var legends = [];
+      for (var i=0; i<10; i++) {
+        legends[i] = 'data'+i;
+      }
+
+      // graph
+      var chart = echarts.init(document.getElementById('chart'));
+      var option = {
+        legend: { data:legends },
+        tooltip: { trigger:'axis' },
+        xAxis: { type:'category', data:labels },
+        yAxis: { type:'value' },
+        series: series
+      };
+      chart.setOption(option);
+
+      // benchmark
+      var time = new Date() - date;
+      document.getElementById('time').innerText = 'benchmark: ' + time.toString() + 'ms';
+    </script>
+  </body>
+</html>

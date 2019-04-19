@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>Google Charts Line Chart Example</title>
+    <meta content='width=device-width' name='viewport'>
+    <script>
+      var date = new Date();
+    </script>
+    <style>
+      #time { text-align: center; }
+    </style>
+  </head>
+  <body>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <div id="chart"></div>
+    <div id="time"></div>
+    <script>
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        // data
+        var columns = [];
+        var header = [];
+        for (var i=0; i<=10; i++) {
+          header[i] = 'header' + i;
+        }
+        columns[0] = header;
+        for (var j=1; j<=100; j++) {
+          var row = [j];
+          for (var i=1; i<=10; i++) {
+            row[i] = Math.random() + i;
+          }
+          columns[j] = row;
+        }
+        console.log(columns);
+        var data = google.visualization.arrayToDataTable(columns);
+        var options = {};
+
+        // graph
+        var chart = new google.visualization.LineChart(document.getElementById('chart'));
+        chart.draw(data, options);
+
+        // benchmark
+        var time = new Date() - date;
+        document.getElementById('time').innerText = 'benchmark: ' + time.toString() + 'ms';
+      }
+    </script>
+  </body>
+</html>

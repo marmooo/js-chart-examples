@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <meta content='width=device-width' name='viewport'>
+    <script>
+      var date = new Date();
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" />
+    <style>
+      #time { text-align: center; }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <canvas id="chart"></canvas>
+    <div id="time"></div>
+    <script>
+      // data
+      var datasets = [];
+      for (var i=0; i<10; i++) {
+        var data = [];
+        for (var j=0; j<100; j++) {
+          data[j] = Math.random() + i;
+        }
+        var row = { label:'data'+i, data:data };
+        datasets[i] = row;
+      }
+      var labels = [];
+      for (var j=0; j<100; j++) {
+        labels[j] = j;
+      }
+
+      // graph
+      var ctx = document.getElementById('chart').getContext('2d');
+      var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: datasets,
+        }
+      });
+
+      // benchmark
+      var time = new Date() - date;
+      document.getElementById('time').innerText = 'benchmark: ' + time.toString() + 'ms';
+    </script>
+  </body>
+</html>

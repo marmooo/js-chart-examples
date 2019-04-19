@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>Chartist.js Line Chart Example</title>
+    <meta content='width=device-width' name='viewport'>
+    <script>
+      var date = new Date();
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.0/chartist.min.css" />
+    <link rel="stylesheet" href="chartist.custom.css" />
+    <style>
+      #time { text-align: center; }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.0/chartist.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartist-plugin-legend/0.6.2/chartist-plugin-legend.min.js"></script>
+    <div id="chart"></div>
+    <div id="time"></div>
+    <script>
+      // data
+      var legends = [];
+      var series = [];
+      for (var i=0; i<10; i++) {
+        legends[i] = ['data' + i];
+        var row = [];
+        for (var j=0; j<100; j++) {
+          row[j] = Math.random() + i;
+        }
+        series[i] = row;
+      }
+      var labels = [];
+      for (var j=0; j<100; j++) {
+        labels[j] = j;
+      }
+
+      // graph
+      var chart = Chartist.Line('#chart', {
+        labels: labels,
+        series: series
+      }, {
+        plugins: [
+          Chartist.plugins.legend({
+            legendNames: legends
+          })
+        ]
+      });
+
+      // benchmark
+      chart.on('created', function() {
+        var time = new Date() - date;
+        document.getElementById('time').innerText = 'benchmark: ' + time.toString() + 'ms';
+      });
+    </script>
+  </body>
+</html>

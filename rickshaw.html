@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>Rickshaw Line Chart Example</title>
+    <meta content='width=device-width' name='viewport'>
+    <script>
+      var date = new Date();
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.6.6/rickshaw.min.css" />
+    <style>
+      #time { text-align: center; }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.6.6/rickshaw.min.js"></script>
+    <div id="chart"></div>
+    <div id="legend"></div>
+    <div id="time"></div>
+    <script>
+      // Rickshaw supports d3.js 3.x only
+      // data
+      var series = [];
+      for (var i=0; i<10; i++) {
+        var data = [];
+        for (var j=0; j<100; j++) {
+          data[j] = {x:j, y:Math.random() + i };
+        }
+        var rows = { data:data, color:'blue' };
+        series[i] = rows;
+      }
+
+      // graph
+      var graph = new Rickshaw.Graph({
+        element: document.getElementById('chart'),
+        renderer: 'line',
+        series: series,
+      });
+      graph.render();
+      var legend = new Rickshaw.Graph.Legend({ graph:graph, element:document.getElementById('legend') });
+      var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({ graph:graph, legend:legend });
+      var hoverDetail = new Rickshaw.Graph.HoverDetail({ graph:graph });
+      new Rickshaw.Graph.Axis.Time({ graph:graph }).render();
+      new Rickshaw.Graph.Axis.Y({ graph:graph }).render();
+
+      // benchmark
+      var time = new Date() - date;
+      document.getElementById('time').innerText = 'benchmark: ' + time.toString() + 'ms';
+    </script>
+  </body>
+</html>

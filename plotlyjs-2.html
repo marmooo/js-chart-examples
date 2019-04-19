@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>Plotly.js Line Chart Example</title>
+    <meta content='width=device-width' name='viewport'>
+    <script>
+      var date = new Date();
+    </script>
+    <style>
+      #time { text-align: center; }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.47.2/plotly-basic.min.js"></script>
+    <div id="chart"></div>
+    <div id="time"></div>
+    <script>
+      // data
+      var datasets = [];
+      for (var i=0; i<10; i++) {
+        var x = [];
+        var y = [];
+        for (var j=0; j<100; j++) {
+          x[j] = j;
+          y[j] = Math.random() + i;
+        }
+        datasets[i] = { x:x, y:y, type:'line' }
+      }
+
+      // graph
+      var chart = Plotly.newPlot('chart', datasets);
+
+      // benchmark
+      var time = new Date() - date;
+      document.getElementById('time').innerText = 'benchmark: ' + time.toString() + 'ms';
+    </script>
+  </body>
+</html>

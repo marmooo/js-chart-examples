@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>Vis.js Line Chart Example</title>
+    <meta content='width=device-width' name='viewport'>
+    <script>
+      var date = new Date();
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" />
+    <style>
+      #time { text-align: center; }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <div id="chart"></div>
+    <div id="time"></div>
+    <script>
+      // data
+      var datasets = [];
+      for (var i=0; i<10; i++) {
+        for (var j=0; j<100; j++) {
+          var row = { x:j, y:Math.random()+i, group:'data'+i };
+          datasets.push(row);
+        }
+      }
+      var labels = [];
+      for (var j=0; j<100; j++) {
+        labels[j] = j;
+      }
+
+      // graph
+      var elem = document.getElementById('chart');
+      var options = { legend:true };
+      var chart = new vis.Graph2d(elem, datasets, options);
+
+      // benchmark
+      var time = new Date() - date;
+      document.getElementById('time').innerText = 'benchmark: ' + time.toString() + 'ms';
+    </script>
+  </body>
+</html>
